@@ -7,6 +7,8 @@ const app = createApp({
             apiEvents : [],
             busqueda: "",
             filtroTitulo: [],
+            categorias: [],
+            newCategorys:[]
         }
     },
 
@@ -17,15 +19,24 @@ const app = createApp({
     .then(res => res.json())
     .then(data => {
     this.apiEvents = data.events 
+    this.categorias = this.apiEvents.map((event) => event.category)
+    this.newCategorys = [... new Set (this.categorias)] 
+     
     
 }).catch(error => console.error(error))
     },
+
+    method:{
+
+    },
+
 
     computed:{
         filtrarPorTitulo (){
             this.filtroTitulo = this.apiEvents.filter(event => event.name.toLowerCase().includes(this.busqueda.toLowerCase()))
             console.log(this.filtroTitulo)
-          }
+          },
+          
     }
 })
 

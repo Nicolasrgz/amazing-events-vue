@@ -58,8 +58,9 @@
 
       <div class="container-search">
         <div class="search-edit d-flex flex-wrap justify-content-center align-items-center ">
-          <form id="formulario"  action="#" class="form-1 d-flex flex-wrap gap-2 p-3">
-
+          <form id="formulario"  class="form-1 d-flex flex-wrap gap-2 p-3" v-for="element of newCategorys" >
+            <input type="checkbox" id="{{element.category}}" name="checkbox" value="{{element.category}}">
+            <label for="{{element.category}}">{{element.category}}</label>
           </form>
           <form action="#" class="d-flex justify-content-center " role="search">
             <input id="busqueda" class="form-control me-2" v-model="busqueda" type="search" placeholder="Search" aria-label="Search">
@@ -70,7 +71,7 @@
 
       <div id="section" class="d-flex flex-wrap justify-content-center gap-5 m-5" >
 
-        <div class="card" v-for="elementos of apiEvents">
+        <div class="card" v-for="elementos of filtroTitulo">
           <img class="card-img-top" v-bind:src="elementos.image">
           <div class="card-body">
             <h5 class="card-title">{{elementos.name}}</h5>
