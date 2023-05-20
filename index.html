@@ -58,10 +58,10 @@
 
       <div class="container-search">
         <div class="search-edit d-flex flex-wrap justify-content-center align-items-center ">
-          <div id="formulario" class="form-1 d-flex flex-wrap gap-1 p-3" v-for="element of añadirCategoria">
+          <form id="formulario" class="form-1 d-flex flex-wrap gap-1 p-3" v-for="element of categorias" >
             <input type="checkbox" v-bind:id="element" v-model="checkedInput" v-bind:value="element">
             <label v-bind:for="element">{{ element }}</label>
-          </div>
+          </form>
           <form action="#" class="d-flex justify-content-center " role="search">
             <input id="busqueda" class="form-control me-2" v-model="busqueda" type="search" placeholder="Search" aria-label="Search">
             <button class="btn btn-outline-success" type="submit" v-on:click="filtrarPorTitulo">Search</button>

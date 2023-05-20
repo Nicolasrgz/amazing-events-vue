@@ -4,12 +4,11 @@ const app = createApp({
 
     data(){
         return{
-            apiEvents : [],
-            busqueda: "",
-            filtroTitulo: [],
-            checkedInput: [],
-            categorias: [],
-            añadirCategoria: []
+            apiEvents : [], //todos los eventos
+            busqueda: "", //como inicia el input search
+            filtroTitulo: [], //lo que retorna la funcion filtrarPorTitulo () 
+            checkedInput: [], //input seleccionados
+            categorias: [], //categorias filtradas sin repetir
         }
     },
 
@@ -20,8 +19,8 @@ const app = createApp({
     .then(res => res.json())
     .then(data => {
     this.apiEvents = data.events 
-    this.categorias = this.apiEvents.map(event => event.category)
-    this.añadirCategoria = [... new Set (this.categorias)]
+    this.categorias = [... new Set (this.apiEvents.map(event => event.category))]
+    
     
 }).catch(error => console.error(error))
     },
@@ -35,16 +34,7 @@ const app = createApp({
         filtrarPorTitulo (){
             this.filtroTitulo = this.apiEvents.filter(event => event.name.toLowerCase().includes(this.busqueda.toLowerCase()))
             console.log(this.filtroTitulo)
-          },
-        //   filtroCategorias(){
-        //     this.añadirCategoria = []
-        //     for(let elementos of this.apiEvents){
-        //      if (!this.añadirCategoria.includes(elementos.category)) {
-        //              this.añadirCategoria.push(elementos.category);
-        //              console.log(this.añadirCategoria)
-        //          }
-        //     }
-        //  }  
+          },  
     }
 })
 
