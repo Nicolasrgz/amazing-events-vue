@@ -1,6 +1,76 @@
-const table1 = document.getElementById('table-1');
-const table2 = document.getElementById('tbody-table-2')
-const table3 = document.getElementById('tbody-table-3')
+const {createApp} = Vue
+
+createApp = ({
+
+  data(){
+    return{
+      apiEvents: [],
+      currentDate: [],
+
+      nombre: [],
+      asistencia: [],
+      capacidad: [],
+    }
+  },
+
+  created(){
+    fetch("https://mindhub-xj03.onrender.com/api/amazing")
+    .then(res => res.json())
+    .then(data => {
+      this.apiEvents = data.events;
+      this.currentDate = data.currentDate
+
+      this.nombre = apiEvents.events.map(event => event.name)
+      this.asistencia = apiEvents.events.map(event => event.assistance)
+      this.capacidad = apiEvents.events.map(event => event.capacity)
+    })
+  },
+
+  method:{
+    calcularMayorAsistencia(){
+      
+    }
+  },
+
+  computed:{
+
+  }
+
+}).mounth('#app')
+
+function calcularPorcentajeMayor(name, asistencia, capacidad) {
+  let arrayDeDatos = [];
+  for (let i = 0; i < apiEvents.events.length; i++) {
+    if ( !isNaN(capacidad[i])) {
+      let porcentaje = (asistencia[i] * 100) / capacidad[i];
+      let elemento = { name: name[i], porcentaje: porcentaje };
+      arrayDeDatos.push(elemento);
+    }}
+  
+  const eventoMayorAsistencia = arrayDeDatos.reduce((max, asistencia) => {
+    return asistencia.porcentaje > max.porcentaje ? asistencia : max;
+  });
+
+return ((eventoMayorAsistencia.name + ": " + eventoMayorAsistencia.porcentaje.toFixed(2) + "%"))
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// const table1 = document.getElementById('table-1');
+// const table2 = document.getElementById('tbody-table-2')
+// const table3 = document.getElementById('tbody-table-3')
 
 let apiEvents
 fetch("https://mindhub-xj03.onrender.com/api/amazing")
@@ -16,21 +86,7 @@ fetch("https://mindhub-xj03.onrender.com/api/amazing")
     estructuraTable1(eventoMayorAsistencia, eventoMenorAsistencia, eventoConMayorCapacidad);
   });
   
-function calcularPorcentajeMayor(name, asistencia, capacidad) {
-    let arrayDeDatos = [];
-    for (let i = 0; i < apiEvents.events.length; i++) {
-      if ( !isNaN(capacidad[i])) {
-        let porcentaje = (asistencia[i] * 100) / capacidad[i];
-        let elemento = { name: name[i], porcentaje: porcentaje };
-        arrayDeDatos.push(elemento);
-      }}
-    
-    const eventoMayorAsistencia = arrayDeDatos.reduce((max, asistencia) => {
-      return asistencia.porcentaje > max.porcentaje ? asistencia : max;
-    });
-
-  return ((eventoMayorAsistencia.name + ": " + eventoMayorAsistencia.porcentaje.toFixed(2) + "%"))
-};
+;
   
 function calcularMenorPorcentaje(name, asistencia, capacidad) {
     let arrayDeDatos = [];
@@ -65,33 +121,33 @@ function mayorAsistencia(name, capacidad) {
     }
 }
 
-function estructuraTable1(eventoMayorAsistencia, eventoMenorAsistencia, mayorCapacidad) {
-    let estructura = `
-      <tr class = "text-center">
-        <th>Event with the highest % of attendance</th>
-        <th>Event with the lowest % of attendance</th>
-        <th>Event with larger capacity</th>
-      </tr>
-      <tr class = "text-center">
-        <td>${eventoMayorAsistencia}</td>
-        <td>${eventoMenorAsistencia}</td>
-        <td>${mayorCapacidad}</td>
-      </tr>
-    `;
+// function estructuraTable1(eventoMayorAsistencia, eventoMenorAsistencia, mayorCapacidad) {
+//     let estructura = `
+//       <tr class = "text-center">
+//         <th>Event with the highest % of attendance</th>
+//         <th>Event with the lowest % of attendance</th>
+//         <th>Event with larger capacity</th>
+//       </tr>
+//       <tr class = "text-center">
+//         <td>${eventoMayorAsistencia}</td>
+//         <td>${eventoMenorAsistencia}</td>
+//         <td>${mayorCapacidad}</td>
+//       </tr>
+//     `;
 
-    table1.innerHTML = estructura;
-  }
+//     table1.innerHTML = estructura;
+//   }
 //upcoming tiene 19 eventos
 
-function estructura2(categoria, totalCategoria, promedioCategoria) {
-  return `
-      <tr class = "text-center">
-        <td>${categoria}</td>
-        <td>$${totalCategoria}</td>
-        <td>${promedioCategoria}%</td>
-      </tr>
-  `;
-}
+// function estructura2(categoria, totalCategoria, promedioCategoria) {
+//   return `
+//       <tr class = "text-center">
+//         <td>${categoria}</td>
+//         <td>$${totalCategoria}</td>
+//         <td>${promedioCategoria}%</td>
+//       </tr>
+//   `;
+// }
 
 function imprimirDatosUp(data) {
   let datosFiltrados = {};
@@ -125,15 +181,15 @@ function imprimirDatosUp(data) {
   return datosFiltrados;
 }
 // estructura 3
-function estructura3(categoria, totalCategoria, promedioCategoria) {
-  return `
-      <tr class= "col-12 text-center">
-        <td>${categoria}</td>
-        <td>$${totalCategoria}</td>
-        <td>${promedioCategoria}%</td>
-      </tr>
-  `;
-}
+// function estructura3(categoria, totalCategoria, promedioCategoria) {
+//   return `
+//       <tr class= "col-12 text-center">
+//         <td>${categoria}</td>
+//         <td>$${totalCategoria}</td>
+//         <td>${promedioCategoria}%</td>
+//       </tr>
+//   `;
+// }
 
 function imprimirDatosPast(data) {
   let datosFiltrados = {};

@@ -32,8 +32,8 @@ const app = createApp({
         this.eventosFuturos = this.apiEvents.filter(event => event.fechaEvento < this.fechaLimite)
 
         this.eventosFuturos = this.apiEvents.filter(event => {
-            const fechaEvento = new Date(event.date).getTime() // Obtiene la fecha del evento
-            return fechaEvento < this.fechaLimite // Filtra los eventos Futuros
+            this.fechaEvento = new Date(event.date).getTime() // Obtiene la fecha del evento
+            return this.fechaEvento < this.fechaLimite // Filtra los eventos Futuros
           })
 
         // this.eventsPast()

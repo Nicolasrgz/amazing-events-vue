@@ -32,8 +32,8 @@ const app = createApp({
         this.eventosPasados = this.apiEvents.filter(event => event.fechaEvento > this.fechaLimite)
 
         this.eventosPasados = this.apiEvents.filter(event => {
-            const fechaEvento = new Date(event.date).getTime() // Obtiene la fecha del evento
-            return fechaEvento > this.fechaLimite // Filtra los eventos Pasados
+            this.fechaEvento = new Date(event.date).getTime() // Obtiene la fecha del evento
+            return this.fechaEvento > this.fechaLimite // Filtra los eventos Pasados
           })
 
         // this.eventsPast()
@@ -42,16 +42,7 @@ const app = createApp({
   },
 
   methods: {
-    // eventsPast() {
-    //   this.eventosPasados = [] // Reinicia la lista de eventos Pasados
-    //   for (let elemento of this.apiEvents) {
-    //     this.fechaEvento = new Date(elemento.date).getTime(); // Usa elemento.date en lugar de elemento.apiEvents.date
-    //     this.fechaLimite = new Date(this.currentDate).getTime();
-    //     if (this.fechaEvento < this.fechaLimite) {
-    //       this.eventosPasados.push(elemento); // Agrega el evento a la lista de eventos Pasados
-    //     }
-    //   }
-    // }
+
   },
 
   computed: {
