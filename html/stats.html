@@ -58,18 +58,18 @@
 
         <div class="tabla-stats d-flex flex-column">
           <h2 class="text-center">event statistics</h2>
-            <table id="table-1" class="">
-              <tr class = "text-center">
-                <th>Event with the highest % of attendance</th>
-                <th>Event with the lowest % of attendance</th>
-                <th>Event with larger capacity</th>
-              </tr>
-              <tr class = "text-center">
-                <td>${eventoMayorAsistencia}</td>
-                <td>${eventoMenorAsistencia}</td>
-                <td>${mayorCapacidad}</td>
-              </tr>
-            </table>    
+          <table id="table-1" class="">
+            <tr class="text-center">
+              <th>Event with the highest % of attendance</th>
+              <th>Event with the lowest % of attendance</th>
+              <th>Event with larger capacity</th>
+            </tr>
+            <tr class="text-center">
+              <td>{{ calcularMayorAsistencia() }}</td>
+              <td>{{ calcularMenorAsistencia() }}</td>
+              <td>{{ calcularMayorCapacidad() }}</td>
+            </tr>
+          </table>    
             <h2 class="text-center">Upcoming events statistics by category</h2>       
             <table id="table-2" class="">
             <thead>
