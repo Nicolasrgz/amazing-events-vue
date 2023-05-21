@@ -9,7 +9,7 @@ const app = createApp({
       checkedInput: [],
       categorias: [],
       
-      filtroFechasUp: [],
+     
       fechaEvento: [],
    
       eventosFuturos: [] // Nueva propiedad para almacenar los eventos Futuros filtrados
@@ -27,31 +27,18 @@ const app = createApp({
         this.categorias = [... new Set (this.apiEvents.map(event => event.category))]
 
         this.fechaLimite = new Date(this.currentDate).getTime()
-
-        
-        this.eventosFuturos = this.apiEvents.filter(event => event.fechaEvento < this.fechaLimite)
+        this.eventosFuturos = this.apiEvents.filter(event => event.fechaEvento > this.fechaLimite)
 
         this.eventosFuturos = this.apiEvents.filter(event => {
-            this.fechaEvento = new Date(event.date).getTime() // Obtiene la fecha del evento
-            return this.fechaEvento < this.fechaLimite // Filtra los eventos Futuros
+          this.fechaEvento = new Date(event.date).getTime() // Obtiene la fecha del evento
+            return this.fechaEvento > this.fechaLimite // Filtra los eventos Futuros
           })
-
-        // this.eventsPast()
+          console.log(this.eventosFuturos)
       })
       .catch(error => console.error(error))
   },
 
   methods: {
-    // eventsPast() {
-    //   this.eventosFuturos = [] // Reinicia la lista de eventos Futuros
-    //   for (let elemento of this.apiEvents) {
-    //     this.fechaEvento = new Date(elemento.date).getTime(); // Usa elemento.date en lugar de elemento.apiEvents.date
-    //     this.fechaLimite = new Date(this.currentDate).getTime();
-    //     if (this.fechaEvento < this.fechaLimite) {
-    //       this.eventosFuturos.push(elemento); // Agrega el evento a la lista de eventos Futuros
-    //     }
-    //   }
-    // }
   },
 
   computed: {

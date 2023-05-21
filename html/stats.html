@@ -71,39 +71,48 @@
             </tr>
           </table>    
             <h2 class="text-center">Upcoming events statistics by category</h2>       
-            <table id="table-2" class="">
-            <thead>
-              <tr class="text-center">
-              <th>category</th>
-              <th>Revenues</th>
-              <th>% of attendance</th>
-              </tr>
-              </thead>
-              <tbody id="tbody-table-2">
-                <tr class = "text-center">
-                  <td>${categoria}</td>
-                  <td>$${totalCategoria}</td>
-                  <td>${promedioCategoria}%</td>
-                </tr>
-              </tbody>
-            </table>  
-            <h2 class="text-center">Past events statistics by category</h2>  
-            <table id="table-3" class="">
+            <table id="table-2">
               <thead>
                 <tr class="text-center">
-                <th>category</th>
-                <th>Revenues</th>
-                <th>% of attendance</th>
+                  <th>Category</th>
+                  <th>Revenues</th>
+                  <th>% of attendance</th>
                 </tr>
-                </thead>
-                <tbody id="tbody-table-3">
-                  <tr class= "col-12 text-center">
-                    <td>${categoria}</td>
-                    <td>$${totalCategoria}</td>
-                    <td>${promedioCategoria}%</td>
-                  </tr>
-                </tbody>
+              </thead>
+              <tbody id="tbody-table-2">
+                <tr
+                  class="text-center"
+                  v-for="(total, categoria) in totalCategoria"
+                  :key="categoria" >
+                  <td>{{ categoria }}</td>
+                  <td>${{ total }}</td>
+                  <td>{{ promedioCategoria[categoria].toFixed(2) }}%</td>
+                </tr>
+              </tbody>
             </table>
+            
+            
+            
+            <h2 class="text-center">Past events statistics by category</h2>  
+            <!-- <table id="table-3" class="">
+              <thead>
+                <table id="table-3" class="">
+                  <thead>
+                    <tr class="text-center">
+                      <th>Category</th>
+                      <th>Revenues</th>
+                      <th>% of attendance</th>
+                    </tr>
+                  </thead>
+                  <tbody id="tbody-table-3">
+                    <tr class="col-12 text-center" v-for="(total, categoria) in totalCategoria" :key="categoria">
+                      <td>{{ categoria }}</td>
+                      <td>{{ total }}</td>
+                      <td>{{ promedioCategoria[categoria].toFixed(2) }}%</td>
+                    </tr>
+                  </tbody>
+                </table> -->
+                
             </div>
       </main>
       <footer>

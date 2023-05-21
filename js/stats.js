@@ -20,6 +20,14 @@ const app = createApp({
       mayorCapacidad: [],
       eventoMayorCapacidad: [],
 
+            
+      fechaEvento: [],
+      eventosFuturos: [] ,
+
+      datosFiltrados: {},
+      categoria: [],
+      totalCategoria: [],
+      promedioCategoria: [],
       elemento: [],
     };
   },
@@ -30,9 +38,20 @@ const app = createApp({
         this.apiEvents = data.events;
         this.currentDate = data.currentDate;
 
+        
+
         this.name = this.apiEvents.map((event) => event.name);
         this.assistance = this.apiEvents.map((event) => event.assistance);
         this.capacity = this.apiEvents.map((event) => event.capacity);
+
+        this.fechaLimite = new Date(this.currentDate).getTime()
+        this.eventosFuturos = this.apiEvents.filter(event => event.fechaEvento > this.fechaLimite)
+
+        this.eventosFuturos = this.apiEvents.filter(event => {
+          this.fechaEvento = new Date(event.date).getTime() // Obtiene la fecha del evento
+            return this.fechaEvento > this.fechaLimite 
+          }) // Filtra los eventos Futuros
+          this.imprimirDatosUp();
       });
   },
   methods: {
@@ -43,11 +62,13 @@ const app = createApp({
           this.arrayMayorAsistencia.push(this.elemento);
         }
       }
-      this.eventoMayorAsistencia = this.arrayMayorAsistencia.reduce(
-        (max, assistance) => {
-          return assistance.porcentaje > max.porcentaje ? assistance : max;
-        }
-      );
+      if (this.arrayMayorAsistencia.length > 0) {
+        this.eventoMayorAsistencia = this.arrayMayorAsistencia.reduce(
+          (max, assistance) => {
+            return assistance.porcentaje > max.porcentaje ? assistance : max;
+          }
+        );
+      }
       return (this.eventoMayorAsistencia.name +": " + this.eventoMayorAsistencia.porcentaje.toFixed(2) + "%"
       );
     },
@@ -58,10 +79,13 @@ const app = createApp({
           this.arrayMenorAsistencia.push(this.elemento);
         }
       }
-      this.eventoMenorAsistencia = this.arrayMenorAsistencia.reduce(
-        (min, assistance) => { return assistance.porcentaje < min.porcentaje ? assistance : min;
-        }
-      );
+      if (this.arrayMenorAsistencia.length > 0) {
+        this.eventoMenorAsistencia = this.arrayMenorAsistencia.reduce(
+          (max, assistance) => {
+            return assistance.porcentaje > max.porcentaje ? assistance : max;
+          }
+        );
+      }
       return ( this.eventoMenorAsistencia.name + ": " + this.eventoMenorAsistencia.porcentaje.toFixed(2) +"%"
       );
     },
@@ -79,131 +103,30 @@ const app = createApp({
         );
       }
     },
+    imprimirDatosUp() {
+      this.totalCategoria = {};
+      this.promedioCategoria = {};
+    
+      for (const elemento of this.eventosFuturos) {
+        const categoria = elemento.category;
+    
+        if (!this.totalCategoria[categoria]) {
+          this.totalCategoria[categoria] = 0;
+        }
+        this.totalCategoria[categoria] += elemento.price * elemento.estimate;
+    
+        if (!this.promedioCategoria[categoria]) {
+          this.promedioCategoria[categoria] = 0;
+        }
+        this.promedioCategoria[categoria] += (elemento.estimate * 100) / elemento.capacity;
+      }
+    
+      for (const categoria in this.totalCategoria) {
+        this.promedioCategoria[categoria] /= this.eventosFuturos.filter((e) => e.category === categoria).length;
+      }
+    },
+    
+    
   },
 });
-
-app.mount("#app");
-
-
-// const table1 = document.getElementById('table-1');
-// const table2 = document.getElementById('tbody-table-2')
-// const table3 = document.getElementById('tbody-table-3')
-
-// let apiEvents
-// fetch("https://mindhub-xj03.onrender.com/api/amazing")
-//   .then(res => res.json())
-//   .then(data => {
-//     apiEvents = data;
-//     const eventoMayorAsistencia = calcularPorcentajeMayor(apiEvents.events.map(event => event.name), apiEvents.events.map(event => event.assistance), apiEvents.events.map(event => event.capacity));
-//     const eventoMenorAsistencia = calcularMenorPorcentaje(apiEvents.events.map(event => event.name), apiEvents.events.map(event => event.assistance), apiEvents.events.map(event => event.capacity));
-//     const eventoConMayorCapacidad = mayorAsistencia(apiEvents.events.map(event => event.name), apiEvents.events.map(event => event.capacity));
-//     imprimirDatosUp(apiEvents.events);
-//     imprimirDatosPast(apiEvents.events);
-
-//     estructuraTable1(eventoMayorAsistencia, eventoMenorAsistencia, eventoConMayorCapacidad);
-//   });
-  
-// ;
-  
-
-// function estructuraTable1(eventoMayorAsistencia, eventoMenorAsistencia, mayorCapacidad) {
-//     let estructura = `
-//       <tr class = "text-center">
-//         <th>Event with the highest % of attendance</th>
-//         <th>Event with the lowest % of attendance</th>
-//         <th>Event with larger capacity</th>
-//       </tr>
-//       <tr class = "text-center">
-//         <td>${eventoMayorAsistencia}</td>
-//         <td>${eventoMenorAsistencia}</td>
-//         <td>${mayorCapacidad}</td>
-//       </tr>
-//     `;
-
-//     table1.innerHTML = estructura;
-//   }
-//upcoming tiene 19 eventos
-
-// function estructura2(categoria, totalCategoria, promedioCategoria) {
-//   return `
-//       <tr class = "text-center">
-//         <td>${categoria}</td>
-//         <td>$${totalCategoria}</td>
-//         <td>${promedioCategoria}%</td>
-//       </tr>
-//   `;
-// }
-
-// function imprimirDatosUp(data) {
-//   let datosFiltrados = {};
-
-//   for (let elemento of data) {
-//     let fechaEvento = new Date(elemento.date).getTime();
-//     let fechaLimite = new Date(apiEvents.currentDate).getTime();
-
-//     if (fechaEvento > fechaLimite) {
-//       const categoria = elemento.category;
-
-//       if (!datosFiltrados[categoria]) {
-//         datosFiltrados[categoria] = [];
-//       }
-//       datosFiltrados[categoria].push(elemento);
-//     }
-//   }
-
-//   let estructuraTabla = '';
-//   for (let categoria in datosFiltrados) {
-//     let totalCategoria = datosFiltrados[categoria].reduce((total, elemento) => {
-//       return total + (elemento.price * elemento.estimate);
-//     }, 0);
-//     let promedioCategoria = datosFiltrados[categoria].reduce((promedio, elemento) => {
-//       return promedio + ((elemento.estimate * 100 / elemento.capacity)/ datosFiltrados[categoria].length);
-//     }, 0);
-//     estructuraTabla += estructura2(categoria, totalCategoria, promedioCategoria.toFixed(2));
-//   }
-
-//   table2.innerHTML = estructuraTabla;
-//   return datosFiltrados;
-// }
-// estructura 3
-// function estructura3(categoria, totalCategoria, promedioCategoria) {
-//   return `
-//       <tr class= "col-12 text-center">
-//         <td>${categoria}</td>
-//         <td>$${totalCategoria}</td>
-//         <td>${promedioCategoria}%</td>
-//       </tr>
-//   `;
-// }
-
-// function imprimirDatosPast(data) {
-//   let datosFiltrados = {};
-
-//   for (let elemento of data) {
-//     let fechaEvento = new Date(elemento.date).getTime();
-//     let fechaLimite = new Date(apiEvents.currentDate).getTime();
-
-//     if (fechaEvento < fechaLimite) {
-//       const categoria = elemento.category;
-
-//       if (!datosFiltrados[categoria]) {
-//         datosFiltrados[categoria] = [];
-//       }
-//       datosFiltrados[categoria].push(elemento);
-//     }
-//   }
-
-//   let estructuraTabla = '';
-//   for (let categoria in datosFiltrados) {
-//     let totalCategoria = datosFiltrados[categoria].reduce((total, elemento) => {
-//       return total + (elemento.price * elemento.assistance);
-//     }, 0);
-//     let promedioCategoria = datosFiltrados[categoria].reduce((promedio, elemento) => {
-//       return promedio + ((elemento.assistance * 100 / elemento.capacity)/ datosFiltrados[categoria].length);
-//     }, 0);
-//     estructuraTabla += estructura3(categoria, totalCategoria, promedioCategoria.toFixed(2));
-//   }
-
-//   table3.innerHTML = estructuraTabla;
-//   return datosFiltrados;
-// }
+app.mount("#app")
