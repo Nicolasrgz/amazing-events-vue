@@ -82,7 +82,7 @@
             <a v-bind:href="'./html/details.html?id=' + elementos._id" class="card-link">more info</a>
           </div>
         </div>
-        
+        <div v-if="!filtroTitulo.length"><img class="card-img-top" src="./img/404.jpg" alt=""></div>
       </div>
     </main>
     <footer>

@@ -58,7 +58,7 @@
 
       <div class="container-search">
         <div class="search-edit d-flex flex-wrap justify-content-center align-items-center ">
-          <form id="formulario" class="form-1 d-flex flex-wrap gap-1 p-3" v-for="element of categorias" >
+          <form id="formulario" class="form-1 d-flex flex-wrap gap-1 p-1" v-for="element of categorias" >
             <input type="checkbox" v-bind:id="element" v-model="checked" v-bind:value="element">
             <label v-bind:for="element">{{ element }}</label>
           </form>
@@ -82,7 +82,7 @@
             <a :href="'../html/details.html?id=' + elementos._id" class="card-link">more info</a>
           </div>
         </div>
-
+        <div v-if="!filtroTitulo.length"><img class="card-img-top" src="../img/404.jpg" alt=""></div>
       </div>
     </main>
     <footer>
