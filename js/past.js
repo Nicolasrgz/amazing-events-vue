@@ -6,7 +6,7 @@ const app = createApp({
       apiEvents: [],
       busqueda: "",
       filtroTitulo: [],
-      checkedInput: [],
+      checked: [],
       categorias: [],
       
       filtroFechasUp: [],
@@ -41,9 +41,9 @@ const app = createApp({
       .catch(error => console.error(error))
   },
   computed: {
-    filtrarPorTitulo() {
-      this.filtroTitulo = this.eventosPasados.filter(event => event.name.toLowerCase().includes(this.busqueda.toLowerCase()))
-      console.log(this.filtroTitulo)
+    filtrarPorTitulo (){
+      this.filtroTitulo = this.eventosPasados.filter(event => event.name.toLowerCase().includes(this.busqueda.toLowerCase())
+      && (this.checked.includes(event.category) || this.checked.length == 0) )
     },
   }
 })

@@ -8,7 +8,7 @@ const app = createApp({
             busqueda: "", //como inicia el input search
             filtroTitulo: [], //lo que retorna la funcion filtrarPorTitulo () 
             checked: [], //input seleccionados
-            filtroChecked: [],
+            
             categorias: [], //categorias filtradas sin repetir
             filtrados: []
         }

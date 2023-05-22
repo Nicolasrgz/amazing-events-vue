@@ -122,7 +122,7 @@ const app = createApp({
           this.totalCategoria[categoria] = 0;
         }
         this.totalCategoria[categoria] += elemento.price * elemento.estimate;
-    
+        console.log(this.totalCategoria[categoria])
         if (!this.promedioCategoria[categoria]) {
           this.promedioCategoria[categoria] = 0;
         }
