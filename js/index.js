@@ -23,17 +23,13 @@ const app = createApp({
     this.apiEvents = data.events 
     this.categorias = [... new Set (this.apiEvents.map(event => event.category))]
     
-    
 }).catch(error => console.error(error))
     },
     computed:{
         filtrarPorTitulo (){
-            this.filtroTitulo = this.apiEvents.filter(event => event.name.toLowerCase().includes(this.busqueda.toLowerCase()))
-            console.log(this.filtroTitulo)
-          }, 
-        filtrarPorChecked(){
-            this.filtroChecked = this.apiEvents.filter(event => event.name.toLowerCase(this.checked))
-        }, 
+            this.filtroTitulo = this.apiEvents.filter(event => event.name.toLowerCase().includes(this.busqueda.toLowerCase())
+            && (this.checked.includes(event.category) || this.checked.length == 0) )
+          },
     }
 })
 app.mount('#app')

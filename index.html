@@ -59,7 +59,7 @@
       <div class="container-search">
         <div class="search-edit d-flex flex-wrap justify-content-center align-items-center ">
           <form id="formulario" class="form-1 d-flex flex-wrap gap-1 p-3" v-for="element of categorias" >
-            <input type="checkbox" v-bind:id="element" v-model="checked" v-bind:value="element">
+            <input type="checkbox" v-bind:name="element" v-bind:id="element" v-model="checked" v-bind:value="element">
             <label v-bind:for="element">{{ element }}</label>
           </form>
           <form action="#" class="d-flex justify-content-center " role="search">
