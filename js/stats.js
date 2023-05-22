@@ -22,12 +22,18 @@ const app = createApp({
 
             
       fechaEvento: [],
-      eventosFuturos: [] ,
+      eventosFuturos: [],
+      eventosPasados: [],
 
       datosFiltrados: {},
       categoria: [],
-      totalCategoria: [],
-      promedioCategoria: [],
+
+      totalCategoria: {},
+      promedioCategoria: {},
+
+      totalCategoriaPast: {},
+      promedioCategoriaPast:{},
+
       elemento: [],
     };
   },
@@ -45,13 +51,20 @@ const app = createApp({
         this.capacity = this.apiEvents.map((event) => event.capacity);
 
         this.fechaLimite = new Date(this.currentDate).getTime()
-        this.eventosFuturos = this.apiEvents.filter(event => event.fechaEvento > this.fechaLimite)
 
+        this.eventosFuturos = this.apiEvents.filter(event => event.fechaEvento > this.fechaLimite)
         this.eventosFuturos = this.apiEvents.filter(event => {
           this.fechaEvento = new Date(event.date).getTime() // Obtiene la fecha del evento
             return this.fechaEvento > this.fechaLimite 
           }) // Filtra los eventos Futuros
           this.imprimirDatosUp();
+
+        this.eventosPasados = this.apiEvents.filter(event => event.fechaEvento < this.fechaLimite) 
+        this.eventosPasados = this.apiEvents.filter(event => {
+          this.fechaEvento = new Date(event.date).getTime() // Obtiene la fecha del evento
+          return this.fechaEvento < this.fechaLimite // Filtra los eventos Pasados
+        })
+        this.imprimirDatosPast(); 
       });
   },
   methods: {
@@ -103,11 +116,8 @@ const app = createApp({
         );
       }
     },
-    imprimirDatosUp() {
-      this.totalCategoria = {};
-      this.promedioCategoria = {};
-    
-      for (const elemento of this.eventosFuturos) {
+    imprimirDatosUp() {   
+      for (let elemento of this.eventosFuturos) {
         const categoria = elemento.category;
     
         if (!this.totalCategoria[categoria]) {
@@ -120,12 +130,28 @@ const app = createApp({
         }
         this.promedioCategoria[categoria] += (elemento.estimate * 100) / elemento.capacity;
       }
-    
-      for (const categoria in this.totalCategoria) {
+  
+      for (let categoria in this.totalCategoria) {
         this.promedioCategoria[categoria] /= this.eventosFuturos.filter((e) => e.category === categoria).length;
       }
     },
-    
+    imprimirDatosPast(){
+      for(let elemento of this. eventosPasados){
+        const categoriaPast = elemento.category;
+        if(!this.totalCategoriaPast[categoriaPast]){
+          this.totalCategoriaPast[categoriaPast] = 0
+        }
+        this.totalCategoriaPast[categoriaPast] += elemento.price * elemento.assistance;
+
+        if(!this.promedioCategoriaPast[categoriaPast]){
+          this.promedioCategoriaPast[categoriaPast] = 0;
+        }
+        this.promedioCategoriaPast[categoriaPast] += (elemento.assistance * 100) / elemento.capacity;
+      }
+      for(let categoriaPast in this.totalCategoriaPast){
+        this.promedioCategoriaPast[categoriaPast] /= this.eventosPasados.filter((e) => e.category === categoriaPast).length
+      }
+    },
     
   },
 });

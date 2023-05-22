@@ -94,7 +94,7 @@
             
             
             <h2 class="text-center">Past events statistics by category</h2>  
-            <!-- <table id="table-3" class="">
+            <table id="table-3" class="">
               <thead>
                 <table id="table-3" class="">
                   <thead>
@@ -105,13 +105,14 @@
                     </tr>
                   </thead>
                   <tbody id="tbody-table-3">
-                    <tr class="col-12 text-center" v-for="(total, categoria) in totalCategoria" :key="categoria">
-                      <td>{{ categoria }}</td>
-                      <td>{{ total }}</td>
-                      <td>{{ promedioCategoria[categoria].toFixed(2) }}%</td>
+                    <tr class="col-12 text-center" v-for="(total, categoriaPast) in totalCategoriaPast" 
+                    :key="categoria">
+                      <td>{{ categoriaPast }}</td>
+                      <td>${{ total }}</td>
+                      <td>{{ promedioCategoriaPast[categoriaPast].toFixed(2) }}%</td>
                     </tr>
                   </tbody>
-                </table> -->
+                </table>
                 
             </div>
       </main>
