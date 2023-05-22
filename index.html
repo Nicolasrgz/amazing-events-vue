@@ -72,18 +72,17 @@
       <div id="section" class="d-flex flex-wrap justify-content-center gap-5 m-5" >
 
         <div class="card" v-for="elementos of filtroTitulo">
-          <img class="card-img-top" :src="elementos.image">
+          <img class="card-img-top" v-bind:src="elementos.image">
           <div class="card-body">
             <h5 class="card-title">{{ elementos.name }}</h5>
             <p class="card-text">{{ elementos.description }}</p>
           </div>
           <div class="card-body d-flex gap-5">
             <p>price: ${{ elementos.price }}</p>
-            <a :href="'./html/details.html?id=' + elementos._id" class="card-link">more info</a>
+            <a v-bind:href="'./html/details.html?id=' + elementos._id" class="card-link">more info</a>
           </div>
         </div>
         
-
       </div>
     </main>
     <footer>

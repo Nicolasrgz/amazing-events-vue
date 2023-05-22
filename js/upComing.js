@@ -9,7 +9,6 @@ const app = createApp({
       checkedInput: [],
       categorias: [],
       
-     
       fechaEvento: [],
    
       eventosFuturos: [] // Nueva propiedad para almacenar los eventos Futuros filtrados
@@ -33,12 +32,8 @@ const app = createApp({
           this.fechaEvento = new Date(event.date).getTime() // Obtiene la fecha del evento
             return this.fechaEvento > this.fechaLimite // Filtra los eventos Futuros
           })
-          console.log(this.eventosFuturos)
       })
       .catch(error => console.error(error))
-  },
-
-  methods: {
   },
 
   computed: {
@@ -50,14 +45,3 @@ const app = createApp({
 })
 
 app.mount('#app')
-
-
-// function imprimirDatos (lista, ubicacion){
-//     for (let elemento of lista){
-//         let fechaEvento = new Date(elemento.date).getTime();
-//         let fechaLimite = new Date(apiEvents.currentDate).getTime();
-//         if (fechaEvento < fechaLimite) {
-//             ubicacion.innerHTML += armarDiv(elemento);
-//         }
-//     }
-// }

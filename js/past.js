@@ -40,11 +40,6 @@ const app = createApp({
       })
       .catch(error => console.error(error))
   },
-
-  methods: {
-
-  },
-
   computed: {
     filtrarPorTitulo() {
       this.filtroTitulo = this.eventosPasados.filter(event => event.name.toLowerCase().includes(this.busqueda.toLowerCase()))

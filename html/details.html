@@ -35,7 +35,7 @@
         <div v-if="eventDetails" class="container-principal">
           <div class="flex-container-details">
             <div class="img-details">
-              <img class="img-d" :src="eventDetails.image">
+              <img class="img-d" v-bind:src="eventDetails.image">
             </div>
             <div class="datos-details">
               <h3 class="h5-p">title: {{ eventDetails.name }}</h3>

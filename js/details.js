@@ -12,8 +12,6 @@ const app = createApp({
   created() {
     this.params = new URLSearchParams(location.search)
     const identificador = this.params.get('id')
-    console.log(identificador)
-    console.log(this.params)
     fetch("https://mindhub-xj03.onrender.com/api/amazing")
       .then(res => res.json())
       .then(data => {

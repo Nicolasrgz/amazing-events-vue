@@ -44,8 +44,6 @@ const app = createApp({
         this.apiEvents = data.events;
         this.currentDate = data.currentDate;
 
-        
-
         this.name = this.apiEvents.map((event) => event.name);
         this.assistance = this.apiEvents.map((event) => event.assistance);
         this.capacity = this.apiEvents.map((event) => event.capacity);
@@ -151,8 +149,7 @@ const app = createApp({
       for(let categoriaPast in this.totalCategoriaPast){
         this.promedioCategoriaPast[categoriaPast] /= this.eventosPasados.filter((e) => e.category === categoriaPast).length
       }
-    },
-    
+    },    
   },
 });
 app.mount("#app")

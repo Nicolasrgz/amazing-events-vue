@@ -21,7 +21,7 @@
             <div class="nav-edit-1 collapse navbar-collapse " id="navbarNavAltMarkup">
               <div class="navbar-nav">
                 <a class="nav-link active" aria-current="page" href="../index.html">Home</a>
-                <a class="nav-link active" aria-current="page" href="../html/upComint.html">Upcoming Event</a>
+                <a class="nav-link active" aria-current="page" href="../html/upComing.html">Upcoming Event</a>
                 <a class="nav-link active" aria-current="page" href="../html/past.html">Past Event</a>
                 <a class="nav-link active" aria-current="page" href="../html/contact.html">Contact</a>
                 <a class="nav-link active" aria-current="page" href="#">Stats</a>
@@ -69,7 +69,8 @@
               <td>{{ calcularMenorAsistencia() }}</td>
               <td>{{ calcularMayorCapacidad() }}</td>
             </tr>
-          </table>    
+          </table>  
+
             <h2 class="text-center">Upcoming events statistics by category</h2>       
             <table id="table-2">
               <thead>
@@ -91,8 +92,6 @@
               </tbody>
             </table>
             
-            
-            
             <h2 class="text-center">Past events statistics by category</h2>  
             <table id="table-3" class="">
               <thead>
@@ -105,8 +104,7 @@
                     </tr>
                   </thead>
                   <tbody id="tbody-table-3">
-                    <tr class="col-12 text-center" v-for="(total, categoriaPast) in totalCategoriaPast" 
-                    :key="categoria">
+                    <tr class="col-12 text-center" v-for="(total, categoriaPast) in totalCategoriaPast" :key="categoria">
                       <td>{{ categoriaPast }}</td>
                       <td>${{ total }}</td>
                       <td>{{ promedioCategoriaPast[categoriaPast].toFixed(2) }}%</td>
