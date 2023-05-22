@@ -7,8 +7,10 @@ const app = createApp({
             apiEvents : [], //todos los eventos
             busqueda: "", //como inicia el input search
             filtroTitulo: [], //lo que retorna la funcion filtrarPorTitulo () 
-            checkedInput: [], //input seleccionados
+            checked: [], //input seleccionados
+            filtroChecked: [],
             categorias: [], //categorias filtradas sin repetir
+            filtrados: []
         }
     },
 
@@ -28,7 +30,10 @@ const app = createApp({
         filtrarPorTitulo (){
             this.filtroTitulo = this.apiEvents.filter(event => event.name.toLowerCase().includes(this.busqueda.toLowerCase()))
             console.log(this.filtroTitulo)
-          },  
+          }, 
+        filtrarPorChecked(){
+            this.filtroChecked = this.apiEvents.filter(event => event.name.toLowerCase(this.checked))
+        }, 
     }
 })
 app.mount('#app')
